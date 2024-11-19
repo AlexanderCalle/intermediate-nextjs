@@ -1,5 +1,6 @@
+
 const EventsDefault = () => {
-  return 'default'
+  return null
 }
 
 export default EventsDefault

@@ -2,16 +2,19 @@ import { getEventsForDashboard } from '@/utils/events'
 import { getCurrentUser } from '@/utils/users'
 import { Chip } from '@nextui-org/react'
 import Link from 'next/link'
+import React from 'react'
 
 const statusColors = {
   draft: 'warning',
   live: 'success',
   started: 'primary',
-  ended: 'disabled',
+  ended: 'default',
   canceled: 'danger',
-}
+  _: undefined
+} as const
 
-const EventsRsvp = async () => {
+const EventsSlot = async () => {
+
   const user = await getCurrentUser()
   const events = await getEventsForDashboard(user.id)
 
@@ -46,4 +49,4 @@ const EventsRsvp = async () => {
   )
 }
 
-export default EventsRsvp
+export default EventsSlot

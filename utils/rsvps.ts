@@ -15,26 +15,22 @@ export const getRsvpsForDashboard = memoize(
         id: true,
       },
     })
-
-    const userEventIds = userEvents.map((event) => event.id)
-    if (!userEventIds.length) return []
+    
+    const userEventsIds = userEvents.map((event) => event.id)
+    if(!userEventsIds.length) return []
 
     const data = await db
       .selectDistinct()
       .from(attendees)
-      .where(inArray(rsvps.eventId, userEventIds))
+      .where(inArray(rsvps.eventId, userEventsIds))
       .leftJoin(rsvps, eq(attendees.id, rsvps.attendeeId))
       .leftJoin(events, eq(rsvps.eventId, events.id))
       .orderBy(desc(rsvps.createdAt))
       .execute()
 
     return data
-  },
-  {
-    persist: true,
-    revalidateTags: () => ['dashboard:rsvps'],
-    suppressWarnings: true,
-    log: ['datacache', 'verbose'],
-    logid: 'dashboard:rsvps',
+  }, {
+  persist: true,
+  revalidateTags: () => ['dashboard:rsvps'],
   }
 )

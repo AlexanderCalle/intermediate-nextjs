@@ -1,8 +1,12 @@
 'use client'
-import Shell from '@/components/Shell'
-import { usePathname } from 'next/navigation'
+import Shell from "@/components/Shell"
+import { usePathname } from "next/navigation"
 
-const Dashboard = ({ children, rsvps, events }) => {
+const DashboardLayout = ({ children, rsvps, events }:{
+     children: React.ReactNode,
+     rsvps: React.ReactNode,
+     events: React.ReactNode,
+  }) => {
   const path = usePathname()
 
   return (
@@ -17,11 +21,13 @@ const Dashboard = ({ children, rsvps, events }) => {
             <div className="w-full h-1/2">{children}</div>
           </div>
         </div>
-      ) : (
-        <div>{children}</div>
+      ): (
+        <div>
+          {children}
+        </div>
       )}
     </Shell>
   )
 }
 
-export default Dashboard
+export default DashboardLayout
